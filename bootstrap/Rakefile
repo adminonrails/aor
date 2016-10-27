@@ -1,0 +1,58 @@
+begin
+  require 'bundler/setup'
+rescue LoadError
+  puts 'You must `gem install bundler` and `bundle install` to run rake tasks'
+end
+
+require 'rdoc/task'
+
+RDoc::Task.new(:rdoc) do |rdoc|
+  rdoc.rdoc_dir = 'rdoc'
+  rdoc.title    = 'Aor::Bootstrap'
+  rdoc.options << '--line-numbers'
+  rdoc.rdoc_files.include('README.md')
+  rdoc.rdoc_files.include('lib/**/*.rb')
+end
+
+
+
+
+
+
+require 'bundler/gem_tasks'
+
+require 'rake/testtask'
+
+Rake::TestTask.new(:test) do |t|
+  t.libs << 'lib'
+  t.libs << 'test'
+  t.pattern = 'test/**/*_test.rb'
+  t.verbose = false
+end
+
+
+task default: :test
+
+task :update_bootstrap do
+  require "aor/bootstrap/version"
+  BOOTSTRAP_VERSION = Aor::Bootstrap::BOOTSTRAP_VERSION
+  CURRENT_DIR = File.expand_path File.dirname(__FILE__)
+
+  sh <<-EOS
+  cd /tmp/
+  rm -rf bootstrap-*
+  wget https://github.com/twbs/bootstrap/releases/download/v#{BOOTSTRAP_VERSION}/bootstrap-#{BOOTSTRAP_VERSION}-dist.zip
+  7z x bootstrap-#{BOOTSTRAP_VERSION}-dist.zip
+  cd bootstrap-#{BOOTSTRAP_VERSION}-dist
+
+  cp css/bootstrap.css #{CURRENT_DIR}/vendor/assets/stylesheets/bootstrap.css.erb
+  cp css/bootstrap-theme.css #{CURRENT_DIR}/vendor/assets/stylesheets/bootstrap-theme.css.erb
+  sed -i "s/'\\([^\\(\\)]*\\)fonts\\/\\([^\\(\\)]*\\)'/'<%= asset_path '\\2' %>'/g" #{CURRENT_DIR}/vendor/assets/stylesheets/bootstrap.css.erb
+  sed -i "s/'\\([^\\(\\)]*\\)fonts\\/\\([^\\(\\)]*\\)'/'<%= asset_path '\\2' %>'/g" #{CURRENT_DIR}/vendor/assets/stylesheets/bootstrap-theme.css.erb
+
+
+  cp fonts/* #{CURRENT_DIR}/vendor/assets/fonts/
+
+  cp js/bootstrap.js #{CURRENT_DIR}/vendor/assets/javascripts/
+  EOS
+end
