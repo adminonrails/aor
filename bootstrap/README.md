@@ -2,7 +2,7 @@
 Bootstrap 的 Rails 包装,和官方的 [bootstrap-rubygem](https://github.com/twbs/bootstrap-rubygem) 相比,主要去掉 Sass 依赖,直接使用编译出来的 css 文件,然后改成 erb 模板,替换 font 路径为 asset_path 方式.
 
 ## Usage
-在 application.css 和 application.js 里面 `require bootstrap` 即可.
+在 application.css 和 application.js 文件里面加入 `require bootstrap` 即可.
 
 ## Installation
 Add this line to your application's Gemfile:
