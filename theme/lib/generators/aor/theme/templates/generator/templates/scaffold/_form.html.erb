@@ -1,0 +1,24 @@
+<%%= form_for([:admin, <%= singular_name %>]) do |f| %>
+  <%% if <%= singular_name %>.errors.any? %>
+    <%%= render 'admin/common/errors', errors: <%= singular_name %>.errors %>
+  <%% end %>
+
+<% attributes.each do |attribute| -%>
+  <div class="form-group">
+<% if attribute.password_digest? -%>
+    <%%= f.label :password %>
+    <%%= f.password_field :password %>
+  </div>
+
+  <div class="form-group">
+    <%%= f.label :password_confirmation %>
+    <%%= f.password_field :password_confirmation %>
+<% else -%>
+    <%%= f.label :<%= attribute.column_name %> %>
+    <%%= f.<%= attribute.field_type %> :<%= attribute.column_name %> %>
+<% end -%>
+  </div>
+
+<% end -%>
+<%%= f.submit nil class: 'btn btn-default' %>
+<%% end %>

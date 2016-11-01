@@ -35,15 +35,14 @@ module Aor
 
     def login_from_session
       if session[:user_id]
-        new_user = User.find_by_id(session[:user_id])
-        session[:user_id] = new_user.try(:id)
-        self.current_user = new_user
+        new_user = User.find_by(id: session[:user_id])
+        self.current_user_form_session = new_user
       end
     end
 
     def login_from_api_key
       key = api_key
-      self.current_user = User.find_by_api_key(key) if key
+      self.current_user = User.find_by(api_key: key) if key
     end
 
     def api_key
