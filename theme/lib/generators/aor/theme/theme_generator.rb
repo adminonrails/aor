@@ -11,11 +11,11 @@ class Aor::ThemeGenerator < Rails::Generators::Base
   end
 
   def create_admin_generator
-    copy_file 'generator/templates/controller/view.html.erb', 'lib/generators/admin/templates/erb/controller/view.html.erb'
+    directory 'generator/erb', 'lib/generators/admin/templates/erb'
     copy_file 'generator/admin_controller_generator.rb', 'lib/generators/admin/controller/controller_generator.rb'
     copy_file 'generator/admin_scaffold_controller_generator.rb', 'lib/generators/admin/scaffold_controller/scaffold_controller_generator.rb'
-
-    directory 'generator/templates/scaffold', 'lib/generators/admin/templates/erb/scaffold'
     copy_file 'generator/admin_scaffold_generator.rb', 'lib/generators/admin/scaffold/scaffold_generator.rb'
+
+    directory 'generator/rails', 'lib/generators/admin/templates/rails'
   end
 end
