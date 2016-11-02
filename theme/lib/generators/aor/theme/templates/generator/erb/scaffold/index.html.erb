@@ -2,32 +2,50 @@
 
 <h1 class="page-header"><%= plural_name.titleize %></h1>
 
-<div class="table-responsive">
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <% attributes.reject(&:password_digest?).each do |attribute| -%>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <%%= link_to 'New <%= singular_name.titleize %>', new_<%= singular_table_name %>_path, class: 'btn btn-primary' %>
+  </div>
+
+  <div class="panel-body">
+    <%%= search_form_for [:admin, @q], class: 'form-inline admin-search-form' do |f| %>
+      <div class="form-group">
+        <%%= f.label :id_eq %>
+        <%%= f.text_field :id_eq, class: 'form-control' %>
+      </div>
+      <%%= f.submit class: 'btn btn-default' %>
+    <%% end %>
+  </div>
+
+  <div class="table-responsive">
+    <table class="table table-bordered">
+      <thead>
+        <tr><% attributes.reject(&:password_digest?).each do |attribute| -%>
           <th><%= attribute.human_name %></th>
         <% end -%>
-        <th colspan="3"></th>
-      </tr>
-    </thead>
-
-    <tbody>
-      <%% @<%= plural_name %>.each do |<%= singular_name %>| %>
-        <tr>
-          <% attributes.reject(&:password_digest?).each do |attribute| -%>
-          <td><%%= <%= singular_name %>.<%= attribute.name %> %></td>
-          <% end -%>
-          <td><%%= link_to 'Show', [:admin, <%= singular_name %>] %></td>
-          <td><%%= link_to 'Edit', edit_<%= singular_table_name %>_path(<%= singular_name %>) %></td>
-          <td><%%= link_to 'Destroy', [:admin, <%= singular_name %>], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <th>Actions</th>
         </tr>
-        <%% end %>
-    </tbody>
-  </table>
+      </thead>
+
+      <tbody>
+        <%% @<%= plural_name %>.each do |<%= singular_name %>| %>
+          <tr><% attributes.reject(&:password_digest?).each do |attribute| -%>
+            <td><%%= <%= singular_name %>.<%= attribute.name %> %></td>
+          <% end -%>
+          <td>
+            <%%= link_to 'Show', [:admin, <%= singular_name %>], class: 'btn btn-info' %>
+            <%%= link_to 'Edit', edit_<%= singular_table_name %>_path(<%= singular_name %>), class: 'btn btn-info' %>
+            <%%= link_to 'Destroy', [:admin, <%= singular_name %>], class: 'btn btn-warning', method: :delete, data: { confirm: 'Are you sure?' } %>
+          </td>
+          </tr>
+          <%% end %>
+      </tbody>
+    </table>
+  </div>
+  <div class="panel-footer">
+    <p>
+    <%%= page_entries_info @<%= plural_name %> %>
+    </p>
+    <%%= paginate @<%= plural_name %> %>
+  </div>
 </div>
-
-<br>
-
-<%%= link_to 'New <%= singular_name.titleize %>', new_<%= singular_table_name %>_path %>

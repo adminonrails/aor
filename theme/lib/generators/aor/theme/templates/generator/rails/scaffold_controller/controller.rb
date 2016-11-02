@@ -8,7 +8,8 @@ class <%= controller_class_name %>Controller < Admin::BaseController
 
   # GET <%= route_url %>
   def index
-    @<%= plural_name %> = <%= orm_class.all(singular_name.camelize) %>
+    @q = <%= singular_name.camelize %>.ransack(search_params)
+    @<%= plural_name %> = @q.result.page(params[:page])
   end
 
   # GET <%= route_url %>/1
@@ -63,6 +64,10 @@ class <%= controller_class_name %>Controller < Admin::BaseController
       <%- else -%>
       params.require(:<%= singular_name %>).permit(<%= attributes_names.map { |name| ":#{name}" }.join(', ') %>)
       <%- end -%>
+    end
+
+    def search_params
+      params.fetch(:q, {}).permit(:id_eq)
     end
 end
 <% end -%>
