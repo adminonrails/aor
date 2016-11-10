@@ -4,7 +4,7 @@
 
 <div class="panel panel-default">
   <div class="panel-heading">
-    <%%= link_to 'New <%= singular_name.titleize %>', new_<%= singular_table_name %>_path, class: 'btn btn-primary' %>
+    <%%= link_to 'New <%= singular_name.titleize %>', new_<%= singular_table_name %>_path, class: 'btn btn-default' %>
   </div>
 
   <div class="panel-body">
@@ -20,7 +20,8 @@
   <div class="table-responsive">
     <table class="table table-bordered">
       <thead>
-        <tr><% attributes.reject(&:password_digest?).each do |attribute| -%>
+        <tr>
+          <% attributes.reject(&:password_digest?).each do |attribute| -%>
           <th><%= attribute.human_name %></th>
         <% end -%>
         <th>Actions</th>
@@ -29,13 +30,14 @@
 
       <tbody>
         <%% @<%= plural_name %>.each do |<%= singular_name %>| %>
-          <tr><% attributes.reject(&:password_digest?).each do |attribute| -%>
+          <tr>
+          <% attributes.reject(&:password_digest?).each do |attribute| -%>
             <td><%%= <%= singular_name %>.<%= attribute.name %> %></td>
           <% end -%>
           <td>
-            <%%= link_to 'Show', [:admin, <%= singular_name %>], class: 'btn btn-info' %>
-            <%%= link_to 'Edit', edit_<%= singular_table_name %>_path(<%= singular_name %>), class: 'btn btn-info' %>
-            <%%= link_to 'Destroy', [:admin, <%= singular_name %>], class: 'btn btn-warning', method: :delete, data: { confirm: 'Are you sure?' } %>
+            <%%= link_to 'Show', [:admin, <%= singular_name %>], class: 'btn btn-default' %>
+            <%%= link_to 'Edit', edit_<%= singular_table_name %>_path(<%= singular_name %>), class: 'btn btn-default' %>
+            <%%= link_to 'Destroy', [:admin, <%= singular_name %>], class: 'btn btn-danger', method: :delete, data: { confirm: 'Are you sure?' } %>
           </td>
           </tr>
           <%% end %>

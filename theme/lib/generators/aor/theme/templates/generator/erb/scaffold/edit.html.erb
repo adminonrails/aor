@@ -1,6 +1,12 @@
 <h1 class="page-header">Editing <%= singular_name.titleize %></h1>
 
-<%%= render 'form', <%= singular_name %>: @<%= singular_name %> %>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <%%= link_to 'Show', [:admin, @<%= singular_name %>], class: 'btn btn-default' %>
+    <%%= link_to 'Back', <%= index_helper %>_path, class: 'btn btn-default' %>
+  </div>
 
-<%%= link_to 'Show', [:admin, @<%= singular_name %>] %> |
-<%%= link_to 'Back', <%= index_helper %>_path %>
+  <div class="panel-body">
+    <%%= render 'form', <%= singular_name %>: @<%= singular_name %> %>
+  </div>
+</div>
