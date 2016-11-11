@@ -39,7 +39,7 @@ class <%= controller_class_name %>Controller < Admin::BaseController
   # PATCH/PUT <%= route_url %>/1
   def update
     if @<%= orm_instance(singular_name).update("#{singular_name}_params") %>
-      redirect_to @<%= singular_name %>, notice: <%= "'#{human_name} was successfully updated.'" %>
+      redirect_to [:admin, @<%= singular_name %>], notice: <%= "'#{human_name} was successfully updated.'" %>
     else
       render :edit
     end

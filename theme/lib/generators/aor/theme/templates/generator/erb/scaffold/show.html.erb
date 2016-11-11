@@ -8,15 +8,15 @@
     <%%= link_to 'Back', <%= index_helper %>_path, class: 'btn btn-default' %>
   </div>
 
-  <% attributes.reject(&:password_digest?).each do |attribute| -%>
-    <table class="table table-bordered">
-      <tbody>
+  <table class="table table-bordered">
+    <tbody>
+      <% attributes.reject(&:password_digest?).each do |attribute| -%>
         <tr>
           <th class="col-sm-3 text-right"><%= attribute.human_name %></th>
           <td class="col-sm-9"><%%= @<%= singular_name %>.<%= attribute.name %> %></td>
         </tr>
-      </tbody>
-    </table>
-  <% end -%>
+      <% end -%>
+    </tbody>
+  </table>
 
 </div>
