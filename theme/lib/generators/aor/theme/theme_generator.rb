@@ -17,6 +17,10 @@ class Aor::ThemeGenerator < Rails::Generators::Base
     initializer 'admin_assets.rb' do
       "Rails.application.config.assets.precompile += %w( admin.js admin.css )"
     end
+
+    initializer 'bootstrap_field_error.rb' do
+      'Rails.application.config.action_view.field_error_proc = Proc.new{ |html_tag, instance| "<div class=\"has-error\">#{html_tag}</div>".html_safe }'
+    end
   end
 
   def create_admin_generator
