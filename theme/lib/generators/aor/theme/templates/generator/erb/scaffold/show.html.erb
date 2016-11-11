@@ -2,8 +2,12 @@
 
 <div class="panel panel-default">
   <div class="panel-heading">
+    <%% if can? :edit, :<%= singular_name %> %>
     <%%= link_to 'Edit', edit_<%= singular_table_name %>_path(@<%= singular_name %>), class: 'btn btn-default' %>
+    <%% end %>
+    <%% if can? :index, :<%= singular_name %> %>
     <%%= link_to 'Back', <%= index_helper %>_path, class: 'btn btn-default' %>
+    <%% end %>
   </div>
 
   <table class="table table-bordered">

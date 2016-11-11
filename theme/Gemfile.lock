@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    aor-theme (0.1.0)
+    aor-theme (0.1.0.alpha1)
       aor-authentication (~> 0.0)
       aor-authorization (~> 0.0)
       aor-bootstrap (~> 3.0)

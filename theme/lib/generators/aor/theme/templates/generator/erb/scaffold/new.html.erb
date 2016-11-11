@@ -2,7 +2,9 @@
 
 <div class="panel panel-default">
   <div class="panel-heading">
+    <%% if can? :index, :<%= singular_name %> %>
     <%%= link_to 'Back', <%= index_helper %>_path, class: 'btn btn-default' %>
+    <%% end %>
   </div>
 
   <div class="panel-body">

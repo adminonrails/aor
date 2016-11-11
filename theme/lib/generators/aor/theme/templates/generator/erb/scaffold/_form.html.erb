@@ -28,7 +28,9 @@
 <% end -%>
 <div class="form-group">
   <div class="col-sm-offset-3 col-sm-9">
+    <%% if((f.object.new_record? && can?(:create, :<%= singular_name %>)) || (f.object.persisted? && can?(:update, :<%= singular_name %>))) %>
     <%%= f.submit nil, class: 'btn btn-primary' %>
+    <%% end %>
   </div>
 </div>
 <%% end %>
