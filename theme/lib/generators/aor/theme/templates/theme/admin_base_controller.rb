@@ -2,8 +2,8 @@ class Admin::BaseController < ApplicationController
   include Aor::Authentication
   include Aor::Authorization
 
-  #before_action :login_required
-  #before_action :authorize_admin
+  before_action :login_required
+  before_action :authorize_admin
 
   helper Admin::BaseHelper
   layout 'admin'
