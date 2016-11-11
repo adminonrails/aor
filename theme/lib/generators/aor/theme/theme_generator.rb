@@ -1,5 +1,5 @@
 class Aor::ThemeGenerator < Rails::Generators::Base
-  source_paths << File.expand_path('../templates', __FILE__)
+  source_paths.insert(0, File.expand_path('../templates', __FILE__))
 
   def create_admin_layout
     copy_file 'theme/admin.js', 'app/assets/javascripts/admin.js'
