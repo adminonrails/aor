@@ -5,6 +5,7 @@ class Admin::BaseController < ApplicationController
   #before_action :login_required
   #before_action :authorize_admin
 
+  helper Admin::BaseHelper
   layout 'admin'
 
   protected

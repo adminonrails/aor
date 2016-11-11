@@ -8,9 +8,11 @@ class Aor::ThemeGenerator < Rails::Generators::Base
     copy_file 'theme/admin_common_headnav.html.erb', 'app/views/admin/common/_headnav.html.erb'
     copy_file 'theme/admin_common_sidebar.html.erb', 'app/views/admin/common/_sidebar.html.erb'
     copy_file 'theme/admin_common_errors.html.erb', 'app/views/admin/common/_errors.html.erb'
+    copy_file 'theme/admin_common_flash_messages.html.erb', 'app/views/admin/common/_flash_messages.html.erb'
     copy_file 'theme/admin_layout.html.erb', 'app/views/layouts/admin.html.erb'
 
     copy_file 'theme/admin_base_controller.rb', 'app/controllers/admin/base_controller.rb'
+    copy_file 'theme/admin_base_helper.rb', 'app/helpers/admin/base_helper.rb'
 
     initializer 'admin_assets.rb' do
       "Rails.application.config.assets.precompile += %w( admin.js admin.css )"
