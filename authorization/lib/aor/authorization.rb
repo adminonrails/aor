@@ -18,7 +18,7 @@ module Aor
     end
 
     def model_class
-      controller_name.to_sym
+      controller_name.to_sym.singularize
     end
 
     def authorize_admin
