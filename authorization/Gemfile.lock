@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    aor-authorization (0.1.0.alpha1)
+    aor-authorization (0.1.0.alpha2)
       cancancan (~> 1.15)
       rails (~> 5.0)
 

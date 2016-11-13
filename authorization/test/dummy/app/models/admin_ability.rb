@@ -6,7 +6,7 @@ class AdminAbility
     when :admin
       can :manage, :all
     when :manager
-      can [:index], :articles
+      can [:index], :article
     end
   end
 end
