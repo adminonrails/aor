@@ -9,6 +9,7 @@ class <%= controller_class_name %>Controller < Admin::BaseController
   # GET <%= route_url %>
   def index
     @q = <%= singular_name.camelize %>.ransack(search_params)
+    @q.sorts = ['id desc'] if @q.sorts.empty?
     @<%= plural_name %> = @q.result.page(params[:page])
   end
 
