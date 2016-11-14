@@ -109,3 +109,8 @@ body {
   display: inline-block;
   border-radius: 50%;
 }
+
+.admin-search-form .form-group {
+    padding-right: 15px;
+    padding-bottom: 15px;
+}
