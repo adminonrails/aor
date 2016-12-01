@@ -1,0 +1,36 @@
+<%%= form_for([:admin, <%= singular_name %>], html: {class: 'form-horizontal'}) do |f| %>
+  <%% if <%= singular_name %>.errors.any? %>
+    <%%= render 'admin/common/errors', errors: <%= singular_name %>.errors %>
+  <%% end %>
+
+<% attributes.each do |attribute| -%>
+  <div class="form-group">
+<% if attribute.password_digest? -%>
+    <%%= f.label :password, class: 'col-sm-3 control-label' %>
+    <div class="col-sm-9">
+    <%%= f.password_field :password, class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%%= f.label :password_confirmation, class: 'col-sm-3 control-label' %>
+    <div class="col-sm-9">
+    <%%= f.password_field :password_confirmation, class: 'form-control' %>
+    </div>
+<% else -%>
+    <%%= f.label :<%= attribute.column_name %>, class: 'col-sm-3 control-label' %>
+    <div class="col-sm-9">
+    <%%= f.<%= attribute.field_type %> :<%= attribute.column_name %>, class: 'form-control' %>
+    </div>
+<% end -%>
+  </div>
+
+<% end -%>
+<div class="form-group">
+  <div class="col-sm-offset-3 col-sm-9">
+    <%% if((f.object.new_record? && can?(:create, :<%= singular_name %>)) || (f.object.persisted? && can?(:update, :<%= singular_name %>))) %>
+    <%%= f.submit nil, class: 'btn btn-primary' %>
+    <%% end %>
+  </div>
+</div>
+<%% end %>

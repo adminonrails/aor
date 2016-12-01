@@ -1,0 +1,24 @@
+<h1 class="page-header">Show <%= singular_name.titleize %></h1>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <%% if can? :edit, :<%= singular_name %> %>
+    <%%= link_to 'Edit', edit_<%= singular_table_name %>_path(@<%= singular_name %>), class: 'btn btn-default' %>
+    <%% end %>
+    <%% if can? :index, :<%= singular_name %> %>
+    <%%= link_to 'Back', <%= index_helper %>_path, class: 'btn btn-default' %>
+    <%% end %>
+  </div>
+
+  <table class="table table-bordered">
+    <tbody>
+      <% attributes.reject(&:password_digest?).each do |attribute| -%>
+        <tr>
+          <th class="col-sm-3 text-right"><%= attribute.human_name %></th>
+          <td class="col-sm-9"><%%= @<%= singular_name %>.<%= attribute.name %> %></td>
+        </tr>
+      <% end -%>
+    </tbody>
+  </table>
+
+</div>

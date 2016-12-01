@@ -22,7 +22,8 @@ $ gem install aor-theme
 ```
 
 ## Contributing
-Contribution directions go here.
+
+测试代码包含 test 目录和 test/dummy/test 两个目录.
 
 ## License
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).

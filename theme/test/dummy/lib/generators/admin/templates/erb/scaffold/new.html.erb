@@ -1,0 +1,13 @@
+<h1 class="page-header">New <%= singular_name.titleize %></h1>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <%% if can? :index, :<%= singular_name %> %>
+    <%%= link_to 'Back', <%= index_helper %>_path, class: 'btn btn-default' %>
+    <%% end %>
+  </div>
+
+  <div class="panel-body">
+    <%%= render 'form', <%= singular_name %>: @<%= singular_name %> %>
+  </div>
+</div>
