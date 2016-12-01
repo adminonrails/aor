@@ -34,4 +34,14 @@ class Aor::ThemeGeneratorTest < Rails::Generators::TestCase
       assert_match %r{field_error_proc}, content
     end
   end
+
+  test '#create_admin_generator' do
+    run_generator
+
+    assert_directory 'lib/generators/admin/templates/erb'
+    assert_file 'lib/generators/admin/controller/controller_generator.rb'
+    assert_file 'lib/generators/admin/scaffold_controller/scaffold_controller_generator.rb'
+    assert_file 'lib/generators/admin/scaffold/scaffold_generator.rb'
+    assert_directory 'lib/generators/admin/templates/rails'
+  end
 end
