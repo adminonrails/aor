@@ -55,6 +55,7 @@ GEM
     aor-bootstrap (3.3.7.alpha1)
       rails (~> 5.0)
     arel (7.1.4)
+    bcrypt (3.1.11)
     builder (3.2.2)
     cancancan (1.15.0)
     concurrent-ruby (1.0.2)
@@ -138,10 +139,11 @@ PLATFORMS
 
 DEPENDENCIES
   aor-theme!
+  bcrypt (~> 3.1.7)
   jquery-rails
   kaminari
   ransack
   sqlite3
 
 BUNDLED WITH
-   1.13.3
+   1.13.6

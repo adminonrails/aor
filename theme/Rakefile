@@ -15,20 +15,108 @@ RDoc::Task.new(:rdoc) do |rdoc|
 end
 
 
-
-
-
-
 require 'bundler/gem_tasks'
 
 require 'rake/testtask'
 
 Rake::TestTask.new(:test) do |t|
+#  t.deps = :init_test
   t.libs << 'lib'
   t.libs << 'test'
-  t.pattern = 'test/**/*_test.rb'
+  t.test_files = FileList['test/**/*_test.rb'].reject{|a| a =~ /functional_test|tmp/}
   t.verbose = false
 end
 
 
 task default: :test
+
+task :init_test do
+  DummyGenerator.start
+end
+
+require 'rails/generators'
+
+class DummyGenerator < Rails::Generators::Base
+
+  def gen_kaminari_views
+    in_dummy_root do
+      generate 'kaminari:views bootstrap3 -fq'
+    end
+  end
+
+  def add_adm_ability
+    in_dummy_root do
+      create_file 'app/models/adm_ability.rb' do
+        <<-EOS
+class AdmAbility
+  include CanCan::Ability
+
+  def initialize(user)
+    can(:manage, :all) if user
+  end
+end
+        EOS
+      end
+    end
+  end
+
+  def gen_aor_theme
+    in_dummy_root do
+      generate 'aor:theme -fq'
+    end
+  end
+
+  def gen_adm_model
+    in_dummy_root do
+      generate 'model AdmUser email password_digest -fq'
+      rake 'db:migrate'
+      inject_into_class 'app/models/adm_user.rb', 'AdmUser', "  has_secure_password\n"
+
+      generate 'model Article title:string text:text -fq'
+    end
+  end
+
+  def gen_adm_controller
+    in_dummy_root do
+      generate 'controller Admin::Main login -fq --skip_routes'
+      generate 'admin:scaffold_controller Admin::Article title:string text:text -fq'
+
+      insert_into_file 'config/routes.rb', after: "Rails.application.routes.draw do\n" do
+        <<-EOS
+  namespace :admin do
+    resources :articles
+    get 'login', to: 'main#login', as: 'main_login'
+  end
+        EOS
+      end
+
+      gsub_file 'app/controllers/admin/main_controller.rb', 'ApplicationController', 'Admin::BaseController'
+      insert_into_file 'app/controllers/admin/main_controller.rb', before: "  def login" do
+        <<-EOS
+  skip_before_action :login_required, only: [:login]
+  skip_before_action :authorize_admin, only: [:login]
+        EOS
+      end
+      insert_into_file 'app/controllers/admin/main_controller.rb', after: "def login\n" do
+        <<-EOS
+    adm_user = AdmUser.first
+    adm_user = AdmUser.create!(email: 'admin@admin.com', password: '1234abcd') if adm_user.nil?
+    self.current_user_form_session = adm_user
+        EOS
+      end
+      insert_into_file 'test/controllers/admin/articles_controller_test.rb', after: "@article = articles(:one)\n" do
+        <<-EOS
+    get admin_main_login_url
+        EOS
+      end
+    end
+  end
+
+  private
+  def in_dummy_root
+    current_destination_root = self.destination_root
+    self.destination_root = File.expand_path("./test/dummy", File.dirname(__FILE__))
+    yield
+    self.destination_root = current_destination_root
+  end
+end

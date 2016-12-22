@@ -3,6 +3,11 @@ require_relative 'boot'
 require 'rails/all'
 
 Bundler.require(*Rails.groups)
+
+require "jquery-rails"
+require 'ransack'
+require 'kaminari'
+
 require "aor/theme"
 
 module Dummy

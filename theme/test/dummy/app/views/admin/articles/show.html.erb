@@ -1,0 +1,26 @@
+<h1 class="page-header">Show Article</h1>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <% if can? :edit, :article %>
+    <%= link_to 'Edit', edit_admin_article_path(@article), class: 'btn btn-default' %>
+    <% end %>
+    <% if can? :index, :article %>
+    <%= link_to 'Back', admin_articles_path, class: 'btn btn-default' %>
+    <% end %>
+  </div>
+
+  <table class="table table-bordered">
+    <tbody>
+              <tr>
+          <th class="col-sm-3 text-right">Title</th>
+          <td class="col-sm-9"><%= @article.title %></td>
+        </tr>
+              <tr>
+          <th class="col-sm-3 text-right">Text</th>
+          <td class="col-sm-9"><%= @article.text %></td>
+        </tr>
+          </tbody>
+  </table>
+
+</div>

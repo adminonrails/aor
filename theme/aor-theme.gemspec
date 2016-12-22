@@ -25,4 +25,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency "jquery-rails"
   s.add_development_dependency "ransack"
   s.add_development_dependency "kaminari"
+  s.add_development_dependency "bcrypt", "~> 3.1.7"
 end

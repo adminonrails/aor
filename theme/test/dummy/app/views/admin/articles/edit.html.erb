@@ -1,0 +1,16 @@
+<h1 class="page-header">Editing Article</h1>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <% if can? :show, :article %>
+    <%= link_to 'Show', [:admin, @article], class: 'btn btn-default' %>
+    <% end %>
+    <% if can? :index, :article %>
+    <%= link_to 'Back', admin_articles_path, class: 'btn btn-default' %>
+    <% end %>
+  </div>
+
+  <div class="panel-body">
+    <%= render 'form', article: @article %>
+  </div>
+</div>

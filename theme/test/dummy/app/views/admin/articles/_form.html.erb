@@ -1,0 +1,27 @@
+<%= form_for([:admin, article], html: {class: 'form-horizontal'}) do |f| %>
+  <% if article.errors.any? %>
+    <%= render 'admin/common/errors', errors: article.errors %>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :title, class: 'col-sm-3 control-label' %>
+    <div class="col-sm-9">
+    <%= f.text_field :title, class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :text, class: 'col-sm-3 control-label' %>
+    <div class="col-sm-9">
+    <%= f.text_area :text, class: 'form-control' %>
+    </div>
+  </div>
+
+<div class="form-group">
+  <div class="col-sm-offset-3 col-sm-9">
+    <% if((f.object.new_record? && can?(:create, :article)) || (f.object.persisted? && can?(:update, :article))) %>
+    <%= f.submit nil, class: 'btn btn-primary' %>
+    <% end %>
+  </div>
+</div>
+<% end %>
